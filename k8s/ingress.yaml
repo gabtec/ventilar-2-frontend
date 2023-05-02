@@ -1,0 +1,43 @@
+# Pre-requisit
+#
+# $ sudo nano /etc/hosts
+#
+# [+] 127.0.0.1 ventilar-web
+# [+] 127.0.0.1 ventilar-api
+#
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ventilar-web
+  annotations:
+    ingress.kubernetes.io/ssl-redirect: 'false'
+spec:
+  rules:
+    - host: ventilar-web
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: ventilar-web
+                port:
+                  number: 80
+#
+#
+#
+# Since only servers one service we can use the defaultBackend
+# instead of defining rules
+#
+# ---
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: test-ingress
+# spec:
+#   defaultBackend:
+#     service:
+#       name: test
+#       port:
+#         number: 80

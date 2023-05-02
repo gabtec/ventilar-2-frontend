@@ -1,0 +1,23 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ventilar-web
+  labels:
+    app: ventilar-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ventilar-web
+  template:
+    metadata:
+      labels:
+        app: ventilar-web
+    spec:
+      containers:
+        - name: ventilar-web
+          image: gabtec/test-k8s:v1 # blue
+          # image: gabtec/test-k8s:083faa54a76681856fd5678a8ddebcf1e85b9ecf # orange
+          ports:
+            - containerPort: 80
